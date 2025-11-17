@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./migrations/001_init.up.sql:/docker-entrypoint-initdb.d/001_init.sql:ro
+
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      SERVER_PORT: 8080
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: todo
+      DB_PASSWORD: todo
+      DB_NAME: todo
+      DB_SSL_MODE: disable
+      JWT_SECRET: supersecret-supersecret-supersecret!!
+    ports:
+      - "8080:8080"
+
+volumes:
+  db-data:
