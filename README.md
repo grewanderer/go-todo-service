@@ -21,7 +21,6 @@ internal/repository  # Persistence interfaces and PostgreSQL implementations
 internal/service     # Business logic (auth/tasks)
 pkg                  # Shared utilities (jwt, logger, password, uuid)
 migrations           # SQL migrations
-docs                 # Documentation assets
 ```
 
 ### Requirements
